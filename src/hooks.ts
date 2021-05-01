@@ -11,10 +11,12 @@ export const useAnimatedScale = () => {
         currI, 
         prevI, 
         scale, 
-        setCurrI, 
-        setPrevI,
-        start() {
+        start(i : number) {
             if (!animated) {
+                if (!currI) {
+                    setPrevI(currI)
+                }
+                setCurrI(i)
                 setAnimated(true)
                 const interval  = setInterval(() => {
                     setScale((prev : number) => {
