@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, CSSProperties} from 'react'
 
 const delay : number = 20 
 const scGap : number = 0.02 
@@ -45,4 +45,29 @@ export const useDimension = () => {
             }
         }
     })
+}
+
+export const useStyle = (w : number, h : number, scale : number) => {
+    const hFactor : number = h / 6
+    return {
+        itemStyle() : CSSProperties {
+            return {
+                width : `${w / 3}px`,
+                height : `${hFactor * scale}px`,
+                background : '#2962FF',
+                fontSize : `20px`,
+                color : 'white', 
+                textAlign: 'center'
+            }
+        },
+        headerStyle() : CSSProperties {
+            return {
+                width : `${w / 3}px`,
+                height : `${h / 15}px`,
+                fontSize : `30px`,
+                color: 'white',
+                background: '#2962FF'
+            }
+        },
+    }
 }
