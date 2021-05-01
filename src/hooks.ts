@@ -1,7 +1,7 @@
 import {useState, useEffect, CSSProperties} from 'react'
 
 const delay : number = 20 
-const scGap : number = 0.02 
+const scGap : number = 0.1 
 export const useAnimatedScale = () => {
     const [currI, setCurrI] : [number, Function]  = useState(-1)
     const [prevI, setPrevI] : [number, Function] = useState(-1)
@@ -23,6 +23,10 @@ export const useAnimatedScale = () => {
                         if (prev > 1) {
                             setAnimated(false)
                             clearInterval(interval)
+                            setCurrI((i : number) => {
+                                setPrevI(i)
+                                return -1
+                            })
                             return 0 
                         }
                         return prev + scGap 
@@ -47,6 +51,10 @@ export const useDimension = () => {
             }
         }
     })
+    return {
+        w, 
+        h
+    }
 }
 
 export const useStyle = (w : number, h : number, scale : number) => {
@@ -59,7 +67,8 @@ export const useStyle = (w : number, h : number, scale : number) => {
                 background : '#2962FF',
                 fontSize : `20px`,
                 color : 'white', 
-                textAlign: 'center'
+                textAlign: 'center',
+                overflow: 'hidden'
             }
         },
         headerStyle() : CSSProperties {
